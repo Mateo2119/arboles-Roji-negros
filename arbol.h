@@ -103,6 +103,9 @@ void Arbol::ajustarRN(Nodo *&raiz, Nodo *&x){
 				x_tio->rojo = false;
 				x_padre->rojo = false;
 				x = x_abuelo;
+				if(x_abuelo == raiz) {
+					x_abuelo->rojo = false;
+				}
 			}
 			else{
 				//Caso 2: x es hijo del mismo lado de su tio
@@ -128,6 +131,9 @@ void Arbol::ajustarRN(Nodo *&raiz, Nodo *&x){
 				x_tio->rojo = false;
 				x_padre->rojo = false;
 				x = x_abuelo;
+				if(x_abuelo == raiz) {
+					x_abuelo->rojo = false;
+				}
 			}
 			else{
 				//Caso 2: x es hijo del mismo lado de su tio
@@ -144,6 +150,7 @@ void Arbol::ajustarRN(Nodo *&raiz, Nodo *&x){
 			}	
 	}
 	//Volvemos a la raiz negra
+	
 	raiz->rojo = false;
 }
 //-----------------AJUSTAR SUPRESION--------------//
