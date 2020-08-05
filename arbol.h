@@ -1,7 +1,9 @@
 #ifndef ARBOL_H
 #define ARBOL_H
 #include <iostream>
+#include <cstdlib>
 using namespace std;
+
 
 struct Nodo{
 	bool rojo;
@@ -236,23 +238,68 @@ Nodo* inser_bas(Nodo* raiz, Nodo *x){
     return raiz; 
 }
 //------------ELIMINACION BASICA------------//
-Nodo* eliminar_bas(Nodo* raiz, Nodo *x){ 
+
+Nodo* minValueNode(Nodo* nodo) 
+{ 
+    Nodo* current = nodo; 
+  
+    /* loop down to find the leftmost leaf */
+    while (current && current->izq != NULL) 
+        current = current->izq; 
+  
+    return current; 
+} 
+
+Nodo* eliminar_bas(Nodo* raiz, int clave){ 
     //ELIMINACION 
+    if (raiz == NULL) return raiz; 
+  
+    
+    if (clave < raiz->info) 
+        raiz->izq = eliminar_bas(raiz->izq, clave); 
+  
+    else if (clave > raiz->info) 
+        raiz->der = eliminar_bas(raiz->der, clave); 
+
+    else
+    { 
+        if (raiz->izq == NULL) 
+        { 
+            Nodo* temp = raiz->der; 
+            free(raiz); 
+            return temp; 
+        } 
+        else if (raiz->der == NULL) 
+        { 
+            Nodo *temp = raiz->izq; 
+            free(raiz); 
+            return temp; 
+        } 
+  
+        Nodo* temp = minValueNode(raiz->der); 
+  
+        raiz->info = temp->info; 
+  
+        raiz->der = eliminar_bas(raiz->der, temp->info); 
+    } 
+    return raiz; 
 }  
+
 
 //----------INSERTAR------------//
 void Arbol::insertar(const int &n){
 	//Se crea el nodo
-	Nodo *x = new Nodo(n);
+	Nodo* x = new Nodo(n);
 	raiz = inser_bas(raiz, x);
 	//Insertar como arbol Roji-negro
 	ajustarRN(raiz, x);
 }
 //----------BORRAR------------//
 void Arbol::eliminar(const int &n){
-	//raiz = eliminar_bas(raiz, n);
-	//Insertar como arbol Roji-negro
-	//ajustarRN(raiz, x);
+	raiz = eliminar_bas(raiz, n);
+	Nodo* x = new Nodo(n);
+	//Eliminar como arbol Roji-negro
+	supresionRN(raiz, x);
 }
 
 
