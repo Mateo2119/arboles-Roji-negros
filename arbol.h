@@ -286,15 +286,22 @@ Nodo* eliminar_bas(Nodo* raiz, int clave){
     return raiz; 
 }  
 
-//----------IMPRIMIR------------//
-void imprimirInorden(Nodo* raiz) 
+
+void imprimirInordenColores(Nodo* raiz) 
 { 	
     if (raiz != NULL) 
     { 
-        imprimirInorden(raiz->izq); 
-        cout<<  raiz->info; 
+        imprimirInordenColores(raiz->izq); 
+        cout<<raiz->info;
+        cout<<"(";
+        if(raiz->rojo) {
+        	cout<<"rojo";
+		}else {
+			cout<<"negro";
+		}
+        cout<<")";
         cout<<" "; 
-        imprimirInorden(raiz->der); 
+        imprimirInordenColores(raiz->der); 
         
     } 
 } 
@@ -309,7 +316,7 @@ void Arbol::insertar(const int &n){
 	cout<<"\n";
 	cout<<"Arbol binario inorden despues de insercion";
 	cout<<"\n";
-	imprimirInorden(raiz);
+	imprimirInordenColores(raiz);
 }
 
 
@@ -322,7 +329,7 @@ void Arbol::eliminar(const int &n){
 	cout<<"\n";
 	cout<<"Arbol binario inorden despues de borrado";
 	cout<<"\n";
-	imprimirInorden(raiz);
+	imprimirInordenColores(raiz);
 }
 
 
