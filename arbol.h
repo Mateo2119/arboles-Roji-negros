@@ -219,6 +219,7 @@ void Arbol::supresionRN(Nodo *&raiz, Nodo *&x){
 			}
 		}	
 	}
+	
 }
 //------------INSERCION BASICA (recursiva)------------//
 Nodo* inser_bas(Nodo* raiz, Nodo *x){ 
@@ -285,6 +286,18 @@ Nodo* eliminar_bas(Nodo* raiz, int clave){
     return raiz; 
 }  
 
+//----------IMPRIMIR------------//
+void imprimirInorden(Nodo* raiz) 
+{ 	
+    if (raiz != NULL) 
+    { 
+        imprimirInorden(raiz->izq); 
+        cout<<  raiz->info; 
+        cout<<" "; 
+        imprimirInorden(raiz->der); 
+        
+    } 
+} 
 
 //----------INSERTAR------------//
 void Arbol::insertar(const int &n){
@@ -293,14 +306,25 @@ void Arbol::insertar(const int &n){
 	raiz = inser_bas(raiz, x);
 	//Insertar como arbol Roji-negro
 	ajustarRN(raiz, x);
+	cout<<"\n";
+	cout<<"Arbol binario inorden despues de insercion";
+	cout<<"\n";
+	imprimirInorden(raiz);
 }
+
+
 //----------BORRAR------------//
 void Arbol::eliminar(const int &n){
 	raiz = eliminar_bas(raiz, n);
 	Nodo* x = new Nodo(n);
 	//Eliminar como arbol Roji-negro
 	supresionRN(raiz, x);
+	cout<<"\n";
+	cout<<"Arbol binario inorden despues de borrado";
+	cout<<"\n";
+	imprimirInorden(raiz);
 }
+
 
 
 #endif
