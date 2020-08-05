@@ -38,6 +38,7 @@ class Arbol{
 	void insertar(const int &n);
 	void eliminar(const int &n);	
 	void imprimir();
+	void destructor(Nodo* raiz);
 };
 //---------Giros------------//
 void Arbol::giroIzq(Nodo *&raiz, Nodo *&x){ 
@@ -337,6 +338,24 @@ void Arbol::eliminar(const int &n){
 	cout<<"Arbol binario inorden despues de borrado";
 	cout<<"\n";
 	imprimirInordenColores(raiz);
+}
+void Arbol::destructor(Nodo* raiz){
+	int aux;
+	if (raiz != NULL)
+    {
+        destructor(raiz->izq);
+        cout<<"Eliminado " <<raiz->info;
+        raiz->info = NULL;
+
+        destructor(raiz->der);
+
+   }else{
+    cout<<"Eliminado la raiz " <<raiz->info;
+  	raiz->info = NULL;
+   }
+    
+	
+	
 }
 
 
